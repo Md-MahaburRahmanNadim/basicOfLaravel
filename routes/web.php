@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\FallbackController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\SinglePostController;
 use Illuminate\Support\Facades\Route;
+use Ramsey\Uuid\Builder\FallbackBuilder;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +25,6 @@ Route::prefix('/blog')->group(function(){
 Route::resource('blog',PostsController::class);
 // // route for single action controller
 // Route::get('/',SinglePostController::class);
+
+// fallback route if any route is not exist then this route is automatically run and this route must be the last route of your  route file
+Route::fallback(FallbackController::class);
