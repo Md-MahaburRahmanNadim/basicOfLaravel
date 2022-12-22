@@ -8,38 +8,17 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
 */
-// // get
-// Route::get('blog',[PostsController::class,'index'])->name('blog');
-// // show a specific post
-// Route::get('blog/id',[PostsController::class,'show'])->name('show');
-// // show the form to submit the data of a form
-// Route::get('blog/create',[PostsController::class,'create'])->name('create');
-// // to store that data
-// Route::post('blog',[PostsController::class,'store'])->name('store');
+Route::prefix('/blog')->group(function(){
+    Route::get('/',[PostsController::class,'index'])->name('blog.index');
+    Route::get('/{id}',[PostsController::class,'show'])->name('blog.show');
+    Route::get('/create',[PostsController::class,'create'])->name('blog.create');
+    Route::post('/',[PostsController::class,'store'])->name('blog.store');
+    Route::get('/edit/{id}',[PostsController::class,'edit'])->name('blog.edit');
+    Route::patch('/{id}',[PostsController::class,'update'])->name('blog.update');
+    Route::delete('/{id}',[PostsController::class,'destory'])->name('blog.destory');
 
-// // put or patch request
-// Route::get('blog/edit/id',[PostsController::class,'edit'])->name('edit'); // to show the edit row
-// // method chaning and impliment the regular expression
-// Route::get('/blog/{id}',[PostsController::class,'update'])->whereNumber('id')->name('update');//to update a spcific field no hole row
-// // Route::get('/blog/{id}',[PostsController::class,'update'])->whereAlpha('name')->name();//to update a spcific field no hole row
-// Route::get('/blog/{id}/{name}',[PostsController::class,'update'])->whereAlphaNumeric('id')->whereAlpha('name')->name('update.alphaNumaric');// multiple parameter regular expression
-// Route::put('/blog/1',[PostsController::class,'update']);// to update a hole row 
-
-// // delete
-// Route::delete('blog/1', [PostsController::class,'destory']);
-
-// multiple route
-Route::match(['post','get'],'blog',[PostsController::class,'index']);
-// Route::any('blog',[PostsController::class,'index']);
-// returning a simple view
-Route::view('/blog','blog.index');
-
+});
 // let's create a resource route
 Route::resource('blog',PostsController::class);
 // // route for single action controller
