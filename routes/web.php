@@ -26,12 +26,9 @@ Route::get('blog',[PostsController::class,'index']);
 // // put or patch request
 // Route::get('blog/edit/1',[PostsController::class,'edit']); // to show the edit row
 // method chaning and impliment the regular expression
-// Route::get('/blog/{id}',[PostsController::class,'update'])->where('id','[0-9]+');//to update a spcific field no hole row
-// Route::get('/blog/{id}',[PostsController::class,'update'])->where('id','[A-Za-z]+');//to update a spcific field no hole row
-Route::get('/blog/{id}/{name}',[PostsController::class,'update'])->where([
-    'id'=>'[0-9]+',
-    'name'=>'[A-Za-z]+'
-]);// multiple parameter regular expression
+// Route::get('/blog/{id}',[PostsController::class,'update'])->whereNumber('id');//to update a spcific field no hole row
+Route::get('/blog/{id}',[PostsController::class,'update'])->whereAlpha('name');//to update a spcific field no hole row
+Route::get('/blog/{id}/{name}',[PostsController::class,'update'])->whereAlphaNumeric('id')->whereAlpha('name');// multiple parameter regular expression
 // Route::put('/blog/1',[PostsController::class,'update']);// to update a hole row 
 
 // // delete
