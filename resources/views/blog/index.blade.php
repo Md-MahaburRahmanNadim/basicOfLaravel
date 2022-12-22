@@ -1,0 +1,1 @@
+<h1>This is a view file inside of the blog folder</h1>
