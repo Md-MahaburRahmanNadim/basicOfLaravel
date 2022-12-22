@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // // get
-// Route::get('blog',[PostsController::class,'index']);
+Route::get('blog',[PostsController::class,'index']);
 // // show a specific post
 // Route::get('blog/1',[PostsController::class,'show']);
 // // show the form to submit the data of a form
@@ -25,7 +25,13 @@ use Illuminate\Support\Facades\Route;
 
 // // put or patch request
 // Route::get('blog/edit/1',[PostsController::class,'edit']); // to show the edit row
-// Route:patch('/blog/1',[PostsController::class,'update']);//to update a spcific field no hole row
+// method chaning and impliment the regular expression
+// Route::get('/blog/{id}',[PostsController::class,'update'])->where('id','[0-9]+');//to update a spcific field no hole row
+// Route::get('/blog/{id}',[PostsController::class,'update'])->where('id','[A-Za-z]+');//to update a spcific field no hole row
+Route::get('/blog/{id}/{name}',[PostsController::class,'update'])->where([
+    'id'=>'[0-9]+',
+    'name'=>'[A-Za-z]+'
+]);// multiple parameter regular expression
 // Route::put('/blog/1',[PostsController::class,'update']);// to update a hole row 
 
 // // delete

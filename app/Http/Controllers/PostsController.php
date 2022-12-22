@@ -70,6 +70,7 @@ class PostsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        return $id;
     }
 
     /**
