@@ -24,6 +24,7 @@ class PostsController extends Controller
     public function create()
     {
         //
+        return 'from is not created';
     }
 
     /**
@@ -36,6 +37,7 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         //
+        return 'form is not submitted yet';
     }
 
     /**
@@ -47,6 +49,7 @@ class PostsController extends Controller
     public function show($id)
     {
         //
+        return $id;
     }
 
     /**
@@ -58,6 +61,7 @@ class PostsController extends Controller
     public function edit($id)
     {
         //
+        return $id;
     }
 
     /**
@@ -82,5 +86,6 @@ class PostsController extends Controller
     public function destroy($id)
     {
         //
+        return $id;
     }
 }

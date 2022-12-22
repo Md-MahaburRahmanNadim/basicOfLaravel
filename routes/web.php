@@ -15,20 +15,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // // get
-Route::get('blog',[PostsController::class,'index']);
+// Route::get('blog',[PostsController::class,'index'])->name('blog');
 // // show a specific post
-// Route::get('blog/1',[PostsController::class,'show']);
+// Route::get('blog/id',[PostsController::class,'show'])->name('show');
 // // show the form to submit the data of a form
-// Route::get('blog/create',[PostsController::class,'create']);
+// Route::get('blog/create',[PostsController::class,'create'])->name('create');
 // // to store that data
-// Route::post('blog',[PostsController::class,'store']);
+// Route::post('blog',[PostsController::class,'store'])->name('store');
 
 // // put or patch request
-// Route::get('blog/edit/1',[PostsController::class,'edit']); // to show the edit row
-// method chaning and impliment the regular expression
-// Route::get('/blog/{id}',[PostsController::class,'update'])->whereNumber('id');//to update a spcific field no hole row
-Route::get('/blog/{id}',[PostsController::class,'update'])->whereAlpha('name');//to update a spcific field no hole row
-Route::get('/blog/{id}/{name}',[PostsController::class,'update'])->whereAlphaNumeric('id')->whereAlpha('name');// multiple parameter regular expression
+// Route::get('blog/edit/id',[PostsController::class,'edit'])->name('edit'); // to show the edit row
+// // method chaning and impliment the regular expression
+// Route::get('/blog/{id}',[PostsController::class,'update'])->whereNumber('id')->name('update');//to update a spcific field no hole row
+// // Route::get('/blog/{id}',[PostsController::class,'update'])->whereAlpha('name')->name();//to update a spcific field no hole row
+// Route::get('/blog/{id}/{name}',[PostsController::class,'update'])->whereAlphaNumeric('id')->whereAlpha('name')->name('update.alphaNumaric');// multiple parameter regular expression
 // Route::put('/blog/1',[PostsController::class,'update']);// to update a hole row 
 
 // // delete
@@ -41,6 +41,6 @@ Route::match(['post','get'],'blog',[PostsController::class,'index']);
 Route::view('/blog','blog.index');
 
 // let's create a resource route
-// Route::resource('blog',PostsController::class);
+Route::resource('blog',PostsController::class);
 // // route for single action controller
 // Route::get('/',SinglePostController::class);
