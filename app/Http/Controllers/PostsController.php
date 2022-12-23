@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -21,17 +22,26 @@ class PostsController extends Controller
     // $posts = DB::select('SELECT * FROM posts WHERE id = ?',[2])single parameter binding
     // $posts = DB::select('SELECT * FROM posts WHERE id = :id',['id'=>1])multiple parameter binding
 
-    $posts = DB::table('posts')
-                ->where('id','<',123)
-                ->get()
-    ;
-
-    // passing data to view via with method
-    // return view('blog.index')->with('posts',$posts);
-    // passing data to view via compact method
-    // return view('blog.index',compact('posts'));
+    // let's grab all data from db of posts table by using Post elequent model
+    // $posts = Post::all() it's return all row in the posts table which is control via Post model. But here we can't do the method chaining. To do the method chaning we need to use (get()) method
+    // $posts = Post::get();
+    // $posts = Post::orderBy('id','desc')->take(10)->get(); here 1st we order those table row as a desciending order then we take 10 item from 1001 value then we retive those value via get method
+    // $posts = Post::where('id',40)->get(); if we dont give any conditional operation the it's take = operation
+    $posts = Post::where('id','<',120)->get();
+    // $posts = Post::chunk(40,function($posts){
+    //     //  here we can do whatever we want 
+    //     foreach($posts as $post){
+    //         echo $post->title .'<br>';
+    //     }
+    // });
+    // $posts = Post::sum('min_to_read');
+    // $posts = Post::avg('min_to_read');
+    // $posts = Post::max('min_to_read');
+    // $posts = Post::min('min_to_read');
+    // $posts = Post::count('min_to_read');
+    // dd($posts);
     return view('blog.index',[
-        'posts' => $posts
+        'posts'=>$posts
     ]);
 
     }
@@ -69,7 +79,10 @@ class PostsController extends Controller
     public function show($id)
     {
         //
-        return $id;
+        $post = Post::findOrFail($id);
+        return view('blog.show',[
+            'post'=>$post
+        ]);
     }
 
     /**
