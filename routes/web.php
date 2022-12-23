@@ -1,30 +1,31 @@
 <?php
 
-use App\Http\Controllers\FallbackController;
-use App\Http\Controllers\PostsController;
-use App\Http\Controllers\SinglePostController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Ramsey\Uuid\Builder\FallbackBuilder;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
 */
-Route::prefix('/blog')->group(function(){
-    Route::get('/',[PostsController::class,'index'])->name('blog.index');
-    Route::get('/{id}',[PostsController::class,'show'])->name('blog.show');
-    Route::get('/create',[PostsController::class,'create'])->name('blog.create');
-    Route::post('/',[PostsController::class,'store'])->name('blog.store');
-    Route::get('/edit/{id}',[PostsController::class,'edit'])->name('blog.edit');
-    Route::patch('/{id}',[PostsController::class,'update'])->name('blog.update');
-    Route::delete('/{id}',[PostsController::class,'destory'])->name('blog.destory');
 
+Route::get('/', function () {
+    return view('welcome');
 });
-// let's create a resource route
-Route::resource('blog',PostsController::class);
-// // route for single action controller
-// Route::get('/',SinglePostController::class);
 
-// fallback route if any route is not exist then this route is automatically run and this route must be the last route of your  route file
-Route::fallback(FallbackController::class);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
