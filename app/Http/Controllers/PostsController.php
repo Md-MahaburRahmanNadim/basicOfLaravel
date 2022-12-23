@@ -27,7 +27,9 @@ class PostsController extends Controller
     // $posts = Post::get();
     // $posts = Post::orderBy('id','desc')->take(10)->get(); here 1st we order those table row as a desciending order then we take 10 item from 1001 value then we retive those value via get method
     // $posts = Post::where('id',40)->get(); if we dont give any conditional operation the it's take = operation
-    $posts = Post::where('id','<',120)->get();
+    // $posts = Post::where('id','<',120)->get();
+    $posts = Post::OrderBy('id','desc')->where('id','>',999)->get();
+
     // $posts = Post::chunk(40,function($posts){
     //     //  here we can do whatever we want 
     //     foreach($posts as $post){
@@ -54,7 +56,7 @@ class PostsController extends Controller
     public function create()
     {
         //
-        return 'from is not created';
+        return view('blog.create');
     }
 
     /**
@@ -67,7 +69,28 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         //
-        return 'form is not submitted yet';
+        // dd($request->all());
+        // this is old way of inserting data into a database which called oop
+        // Post::orderBy('id','desce');
+        // $posts = new Post();
+        // $posts->title = $request->title;
+        // $posts->excerpt = $request->excerpt;
+        // $posts->min_to_read = $request->min_to_read;
+        // $posts->body = $request->body;
+        // $posts->image_path = $request->image_path;
+        // $posts->is_published = $request->is_published === 'on';
+        // // dd($request->all());
+
+        // $posts->save();
+        // let's sotre data in database in a elequent way
+        Post::create([
+            'title'=>$request->title,
+            'excerpt'=>$request->excerpt,
+            'body'=>$request->body,
+            'image_path'=>$request->image_path,
+            'is_published'=>$request->is_published === 'on',
+        ]);
+        return redirect(route('blog.index'));
     }
 
     /**

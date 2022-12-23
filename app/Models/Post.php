@@ -19,4 +19,9 @@ class Post extends Model
     //     'title'=> 'This is post title'
     // ];
 
+    // enabling the mass data entry
+    protected $fillable = [
+        'title','excerpt','body','image_path','is_published','min_to_read'
+    ];
+
 }
