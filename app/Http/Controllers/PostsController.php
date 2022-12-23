@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rules\Unique;
 
 // to create a resource controller we need to give this command (php artisan make:controller controllerName --resource)
 class PostsController extends Controller
@@ -87,7 +88,7 @@ class PostsController extends Controller
             'title'=>$request->title,
             'excerpt'=>$request->excerpt,
             'body'=>$request->body,
-            'image_path'=>$request->image_path,
+            'image_path'=>$this->sotreImage($request),
             'is_published'=>$request->is_published === 'on',
         ]);
         return redirect(route('blog.index'));
@@ -143,5 +144,21 @@ class PostsController extends Controller
     {
         //
         return $id;
+    }
+    // image path generation and sotre the image in the public directory in image folder
+    private function sotreImage($request){
+        $newImageName = uniqid().'-'.$request->title. '.' . $request->image->extension();
+        /**
+         here uniqid() method create a uniqid for each image so that those are not overwrited with the upcoming same name image
+
+         $request->image->extension()
+         the from has image name property in the file selecter input html. The extension() extrack the extension of the file and add to the file name as a extension of that image
+         */
+        return $request->image->move(public_path('images'),$newImageName);
+        /**
+         here move method except 2 parameter 
+         1. file path where it's going to store. Here (public_path()) fn take us to the public folder then it's search for the images derectory if it find then here it's store the value other wise it's create a images folder and then move the image file and sotre here
+         2. the file name
+         */
     }
 }
