@@ -21,18 +21,18 @@ class PostsController extends Controller
     // $posts = DB::select('SELECT * FROM posts WHERE id = ?',[2])single parameter binding
     // $posts = DB::select('SELECT * FROM posts WHERE id = :id',['id'=>1])multiple parameter binding
 
-    $posts = DB::insert('INSERT INTO posts(title,excerpt,body,image_path,is_published,min_to_read) VALUES(?,?,?,?,?,?)',[
-        'THIS IS last post',
-        'I like this course',
-        'I love this course',
-        'example.png',
-        true,
-        1
-    ])
-    
+    $posts = DB::table('posts')
+                ->where('id','<',123)
+                ->get()
     ;
-    // var_dump($posts);
-    dd($posts);
+
+    // passing data to view via with method
+    // return view('blog.index')->with('posts',$posts);
+    // passing data to view via compact method
+    // return view('blog.index',compact('posts'));
+    return view('blog.index',[
+        'posts' => $posts
+    ]);
 
     }
 
