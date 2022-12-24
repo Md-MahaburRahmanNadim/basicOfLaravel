@@ -11,7 +11,7 @@
 <div class="w-4/5 mx-auto">
     <div class="text-center pt-20">
         <h1 class="text-3xl text-gray-700">
-            Add new post
+            Edit: {{ $post->title }}
         </h1>
         <hr class="border border-1 border-gray-300 mt-10">
     </div>
@@ -41,6 +41,7 @@
         method="POST"
         enctype="multipart/form-data">
         @csrf
+        @method('patch')
 
         <label for="is_published" class="text-gray-500 text-2xl">
             Is Published
