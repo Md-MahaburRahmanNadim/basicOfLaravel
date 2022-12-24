@@ -37,7 +37,7 @@
 
 <div class="m-auto pt-20">
     <form
-        action="{{ route('blog.store') }}"
+        action="{{ route('blog.update',$post->id) }}"
         method="POST"
         enctype="multipart/form-data">
         @csrf
@@ -49,31 +49,37 @@
         <input
             type="checkbox"
             id="is_published"
+            {{ $post->is_published === true ? 'checked' : '' }}
             class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             name="is_published">
 
         <input
             type="text"
             name="title"
-            placeholder="Title..."
+            value="{{ $post->title }}"
             class="bg-transparent block border-b-2 w-full h-20 text-2xl outline-none">
 
         <input
             type="text"
             name="excerpt"
-            placeholder="Excerpt..."
+            value="{{ $post->excerpt }}"
+
             class="bg-transparent block border-b-2 w-full h-20 text-2xl outline-none">
 
         <input
             type="number"
             name="min_to_read"
-            placeholder="Minutes to read..."
+            value="{{ $post->min_to_read }}"
+
             class="bg-transparent block border-b-2 w-full h-20 text-2xl outline-none">
 
         <textarea
             name="body"
             placeholder="Body..."
-            class="py-20 bg-transparent block border-b-2 w-full h-60 text-xl outline-none"></textarea>
+            class="py-20 bg-transparent block border-b-2 w-full h-60 text-xl outline-none">
+            value="{{ $post->body }}"
+            
+        </textarea>
        
             
         <div class="bg-grey-lighter py-10">
@@ -83,7 +89,7 @@
                     </span>
                 <input
                     type="file"
-                    name="image"
+                    name="image_path"
                     class="hidden">
             </label>
         </div>

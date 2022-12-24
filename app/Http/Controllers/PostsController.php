@@ -129,8 +129,10 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
-        return $id;
+        // grap the specific post
+        $post = Post::where('id',$id)->first();
+
+        return view('blog.edit',['post'=>$post]);
     }
 
     /**
@@ -143,7 +145,29 @@ class PostsController extends Controller
     public function update(Request $request, $id)
     {
         //
-        return $id;
+        // dd('test'); cheaking that data is comeing or not
+       /**
+        by this method we cant find the image path we also show the method and token to the user that's we use the except method below the getredoff the _token and _method
+        */ 
+        // Post::where('id',$id)->update([
+        //     'title'=> $request->title,
+        //     'excerpt'=> $request->excerpt,
+        //     'body'=> $request->body,
+        //     'image_path'=> $request->image_path,
+        //     'is_published'=> $request->is_published === 'on',
+        //     'min_to_read'=> $request->min_to_read,
+        // ]);
+        $request->validate([
+            'title'=>'required|max:255|unique:posts,title,'.$id,
+            // it's mean that title is unique but editable
+            'excerpt'=>'required',
+            'body'=>'required',
+            'image'=>['mimes:jpg,png,jpeg','max:5048'],
+            'min_to_read'=>'min:0|max:60',
+
+        ]);
+        Post::where('id',$id)->update($request->except(['_token','_method']));
+        return redirect(route('blog.index'));
     }
 
     /**
