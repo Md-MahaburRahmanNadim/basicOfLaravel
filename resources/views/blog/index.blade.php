@@ -77,5 +77,10 @@
             </div>
         </div>
     @endforeach
+    {{-- paginate should be added vary esely via a global link method er madoma --}}
+    <div class="mx-auto pb-10 w-4/5">
+    {{ $posts->links() }}
+    {{-- here is the links is the global links method which create a pagination via query parameter  --}}
+    </div>
 </body>
 </html>

@@ -30,7 +30,7 @@ class PostsController extends Controller
     // $posts = Post::orderBy('id','desc')->take(10)->get(); here 1st we order those table row as a desciending order then we take 10 item from 1001 value then we retive those value via get method
     // $posts = Post::where('id',40)->get(); if we dont give any conditional operation the it's take = operation
     // $posts = Post::where('id','<',120)->get();
-    $posts = Post::OrderBy('id','desc')->where('id','>',900)->get();
+    $posts = Post::paginate(20);
 
     // $posts = Post::chunk(40,function($posts){
     //     //  here we can do whatever we want 
