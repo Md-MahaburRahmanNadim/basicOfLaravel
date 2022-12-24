@@ -29,7 +29,7 @@ class PostsController extends Controller
     // $posts = Post::orderBy('id','desc')->take(10)->get(); here 1st we order those table row as a desciending order then we take 10 item from 1001 value then we retive those value via get method
     // $posts = Post::where('id',40)->get(); if we dont give any conditional operation the it's take = operation
     // $posts = Post::where('id','<',120)->get();
-    $posts = Post::OrderBy('id','desc')->where('id','>',999)->get();
+    $posts = Post::OrderBy('id','desc')->where('id','>',900)->get();
 
     // $posts = Post::chunk(40,function($posts){
     //     //  here we can do whatever we want 
@@ -178,8 +178,13 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
-        return $id;
+        
+        //dd('test'); to check the flow of our app is working or not
+        Post::destroy($id);
+
+       return redirect(route('blog.index'))->with('message','Post has been deleted.');
+        // the with method store a key value payer right inside the session of your laravel app which you can access throught the key of it's session
+        
     }
     // image path generation and sotre the image in the public directory in image folder
     private function sotreImage($request){

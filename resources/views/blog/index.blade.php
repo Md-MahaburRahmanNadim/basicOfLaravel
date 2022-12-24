@@ -23,6 +23,14 @@
             </h1>
             <hr class="border border-1 border-gray-300 mt-10">
         </div>
+        @if(session()->has('message'))
+            <div class="mx-auto w-4/5 pb-10">
+                <div class="border border-t-1 border-x-red-400 rounded-b bg-red-100 py-3 text-red-700">
+                    {{ session()->get('message') }}
+                </div>
+
+            </div>
+        @endif
 
         <div class="py-10 sm:py-20">
             <a class="primary-btn inline text-base sm:text-xl bg-green-500 py-4 px-4 shadow-xl rounded-full transition-all hover:bg-green-400"
@@ -57,6 +65,14 @@
                     op 23-12-2022
                 </span>
                 <a href="{{ route('blog.edit',$post->id) }}" class="block italic text-green-500 border-b-1 border-x-green-400">Edit</a>
+                <form action="{{ route('blog.destroy',$post->id) }}" method="post">
+                @csrf
+                {{-- over writing the method post to delete we use blade derectrive of method like below --}}
+                @method('DELETE')
+                <button class="pt-3 text-red-500 pr-3" type="submit">
+                    Delete
+                </button>
+                </form>
                 </div>
             </div>
         </div>
